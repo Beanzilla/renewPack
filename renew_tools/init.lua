@@ -23,11 +23,7 @@ local function check_player(player, timer)
             local name = stack:get_name()
             if name:sub(1,11) == "renew_tools" then
                 if stack:get_wear() ~= 0 then
-                    if renew_tools.mcl then
-                        stack:add_wear( -renew_tools.factor )
-                    else
-                        stack:add_wear( -(renew_tools.factor/2) )
-                    end
+                    stack:add_wear( -renew_tools.factor )
                     inv:set_stack("main", i, stack)
                     if renew_tools.log == true then
                         minetest.log("action", "[renew_tools] ["..i.."] "..stack:get_wear())
