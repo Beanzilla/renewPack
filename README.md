@@ -8,7 +8,6 @@ This mod supports MTG (via using 3d_armor) and also supports MineClone2. (Exclud
 
 ## Credits
 
-* 3d_armor textures with repaint (Original texture is based on the steel/iron armor set)
 * mcl_armor textures with repaint (Original texture is based on the diamond armor set)
 * default mtg textures with repaint (Original textures from the iron/steel tool set)
 * `renew_plant:plant` texture by Pexels Dominika (Removed background and rescaled, repainted to form end result)
