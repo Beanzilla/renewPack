@@ -98,6 +98,32 @@ local make_stripped_trunk = function(itemstack, placer, pointed_thing)
 end
 
 -- Assistant functions that really should have been placed into an API (Thus I have to lug it around)
+local function create_soil(pos, inv)
+	if pos == nil then
+		return false
+	end
+	local node = minetest.get_node(pos)
+	local name = node.name
+	local above = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
+	if minetest.get_item_group(name, "cultivatable") == 2 then
+		if above.name == "air" then
+			node.name = "mcl_farming:soil"
+			minetest.set_node(pos, node)
+			minetest.sound_play("default_dig_crumbly", { pos = pos, gain = 0.5 }, true)
+			return true
+		end
+	elseif minetest.get_item_group(name, "cultivatable") == 1 then
+		if above.name == "air" then
+			node.name = "mcl_core:dirt"
+			minetest.set_node(pos, node)
+			minetest.sound_play("default_dig_crumbly", { pos = pos, gain = 0.6 }, true)
+			return true
+		end
+	end
+	return false
+end
+
+-- Assistant functions that really should have been placed into an API (Thus I have to lug it around)
 local hoe_on_place_function = function(wear_divisor)
 	return function(itemstack, user, pointed_thing)
 		-- Call on_rightclick if the pointed node defines it
@@ -133,9 +159,12 @@ minetest.register_tool("renew_tools:pick", {
         max_drop_level=5,
         damage_groups = {fleshy=5},
         punch_attack_uses=renew_tools.uses,
+        groupcaps={
+            pickaxey_dig_diamond = {times=mcl_autogroup.digtimes.pickaxey_dig_diamond, uses=renew_tools.uses, maxlevel=0},
+        },
     },
     sound = { breaks = "default_tool_breaks" },
-    --_repair_material = "mcl_core:diamond",
+--    _repair_material = "mcl_core:diamond",
     _mcl_toollike_wield = true,
     _mcl_diggroups = {
         pickaxey = { speed = 8, level = 5, uses=renew_tools.uses }
@@ -150,12 +179,14 @@ minetest.register_tool("renew_tools:shovel", {
     tool_capabilities = {
         full_punch_interval = 1,
         max_drop_level=5,
+        groupcaps={
+            shovely_dig_diamond = {times=mcl_autogroup.digtimes.shovely_dig_diamond, uses=renew_tools.uses, maxlevel=0},
+        },
         damage_groups = {fleshy=5},
         punch_attack_uses=renew_tools.uses,
     },
     on_place = make_grass_path,
     sound = { breaks = "default_tool_breaks" },
-    --_repair_material = "mcl_core:diamond",
     _mcl_toollike_wield = true,
     _mcl_diggroups = {
         shovely = { speed = 8, level = 5, uses=renew_tools.uses }
@@ -170,12 +201,14 @@ minetest.register_tool("renew_tools:axe", {
     tool_capabilities = {
         full_punch_interval = 1.0,
         max_drop_level=5,
+        groupcaps={
+            axey_dig_diamond = {times=mcl_autogroup.digtimes.axey_dig_diamond, uses=renew_tools.uses, maxlevel=0},
+        },
         damage_groups = {fleshy=9},
         punch_attack_uses=renew_tools.uses,
     },
     on_place = make_stripped_trunk,
     sound = { breaks = "default_tool_breaks" },
-    --_repair_material = "mcl_core:diamond",
     _mcl_toollike_wield = true,
     _mcl_diggroups = {
         axey = { speed = 8, level = 5, uses=renew_tools.uses }
@@ -190,11 +223,14 @@ minetest.register_tool("renew_tools:sword", {
     tool_capabilities = {
         full_punch_interval = 0.625,
         max_drop_level=5,
+        groupcaps={
+            swordy_dig = {times=mcl_autogroup.digtimes.swordy_dig , uses=renew_tools.uses, maxlevel=0},
+            swordy_cobweb_dig = {times=mcl_autogroup.digtimes.swordy_cobweb_dig , uses=renew_tools.uses, maxlevel=0},
+        },
         damage_groups = {fleshy=7},
         punch_attack_uses=renew_tools.uses,
     },
     sound = { breaks = "default_tool_breaks" },
-    --_repair_material = "mcl_core:diamond",
     _mcl_toollike_wield = true,
     _mcl_diggroups = {
         swordy = { speed = 8, level = 5, uses=renew_tools.uses },
@@ -207,7 +243,7 @@ minetest.register_tool("renew_tools:hoe", {
     description = renew_tools.S("Renewable Hoe"),
     _tt_help = renew_tools.S("Uses: "..renew_tools.uses),
     inventory_image = "renew_tools_hoe.png",
-    on_place = hoe_on_place_function(0),
+    on_place = hoe_on_place_function(renew_tools.uses),
     groups = { tool=1, hoe=1, enchantability=10 },
     tool_capabilities = {
         full_punch_interval = 0.25,
@@ -220,7 +256,7 @@ minetest.register_tool("renew_tools:hoe", {
     },
 })
 
-local mat = "renew_plant:plant"
+local mat = "renew_plant:plant_tri"
 local stk = "group:stick"
 
 minetest.register_craft({

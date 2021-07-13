@@ -9,13 +9,13 @@ renew_armor.da_armor = minetest.get_modpath("3d_armor") or nil
 
 -- The direct durability for the armors
 renew_armor.uses = 365
-renew_armor.heal = 1
+renew_armor.heal = 2
 
 -- The amount repaired per global step
-renew_armor.factor = 35
+renew_armor.factor = 36
 
 -- Do we log that we did something? (Specifically used for debug
-renew_armor.log = false
+renew_armor.log = true
 
 -- Only support repairing armor when the player is wearing it
 local function check_player(player, timer)

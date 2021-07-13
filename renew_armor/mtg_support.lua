@@ -31,7 +31,7 @@ armor:register_armor(":renew_armor:boots", {
     damage_groups = {cracky=2, snappy=1, choppy=1, level=3}
 })
 
-local mat = "renew_plant:plant"
+local mat = "renew_plant:plant_tri"
 
 minetest.register_craft({
     output = "renew_armor:helmet",

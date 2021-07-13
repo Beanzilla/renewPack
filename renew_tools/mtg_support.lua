@@ -63,7 +63,7 @@ minetest.register_tool("renew_tools:sword", {
     groups = {sword = 1}
 })
 
-local mat = "renew_plant:plant"
+local mat = "renew_plant:plant_tri"
 local stk = "group:stick"
 
 minetest.register_craft({

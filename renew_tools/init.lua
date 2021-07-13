@@ -10,7 +10,7 @@ renew_tools.mcl = minetest.get_modpath("mcl_core") or nil
 renew_tools.uses = 365
 
 -- The amount repaired per global step
-renew_tools.factor = 35
+renew_tools.factor = 36
 
 -- Do we log when we repair? Used for debugging
 renew_tools.log = false

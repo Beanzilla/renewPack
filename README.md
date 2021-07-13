@@ -19,3 +19,9 @@ This mod supports MTG (via using 3d_armor) and also supports MineClone2. (Exclud
 Currently there are no easily adjustable settings... and the current settings I do have I manually fiddled with to make some what sane defaults.
 
 I do have some very rudimentary debug abilities, it simply dumps what slot it is, and the new durability (in raw) to the logs. (Unfortunately you will need to change it in both renew_tools and renew_armor in their init.lua files)
+
+
+## News
+
+* Changed the recipe for crafting all equipment due to the fact it is equal to diamond tools/armor thus the need for them to
+be expensive.
