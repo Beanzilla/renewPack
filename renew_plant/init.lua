@@ -34,3 +34,8 @@ minetest.register_craft({
         p1
     }
 })
+
+local i_repl = rawget(_G, "item_replicator") or nil
+if i_repl ~= nil then
+    i_repl.add(p1, 1, 34)
+end

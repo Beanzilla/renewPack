@@ -1,3 +1,7 @@
+
+-- Because MCL2 and MCL5 != the same system of indicating what can mine what. :(
+local auto_group = 8
+
 -- Assistant functions that really should have been placed into an API (Thus I have to lug it around)
 local make_grass_path = function(itemstack, placer, pointed_thing)
 	-- Use pointed node's on_rightclick function first, if present
@@ -152,22 +156,20 @@ end
 minetest.register_tool("renew_tools:pick", {
     description = renew_tools.S("Renewable Pickaxe"),
     inventory_image = "renew_tools_pick.png",
-    groups = { tool=1, pickaxe=1, dig_speed_class=5, enchantability=10 },
+    groups = { tool=1, pickaxe=1, dig_speed_class=6, enchantability=10 },
     tool_capabilities = {
-        -- 1/1.2
         full_punch_interval = 0.83333333,
         max_drop_level=5,
-        damage_groups = {fleshy=5},
+        damage_groups = {fleshy=6},
         punch_attack_uses=renew_tools.uses,
-        groupcaps={
-            pickaxey_dig_diamond = {times=mcl_autogroup.digtimes.pickaxey_dig_diamond, uses=renew_tools.uses, maxlevel=0},
-        },
+        groupcaps = {
+            pickaxey_dig_diamond = {times = auto_group, uses=renew_tools.uses, maxlevel=0}
+        }
     },
     sound = { breaks = "default_tool_breaks" },
---    _repair_material = "mcl_core:diamond",
     _mcl_toollike_wield = true,
     _mcl_diggroups = {
-        pickaxey = { speed = 8, level = 5, uses=renew_tools.uses }
+        pickaxey = { speed = 9.5, level = 6, uses=renew_tools.uses }
     },
 })
 
@@ -175,21 +177,21 @@ minetest.register_tool("renew_tools:pick", {
 minetest.register_tool("renew_tools:shovel", {
     description = renew_tools.S("Renewable Shovel"),
     inventory_image = "renew_tools_shovel.png",
-    groups = { tool=1, shovel=1, dig_speed_class=5, enchantability=10 },
+    groups = { tool=1, shovel=1, dig_speed_class=6, enchantability=10 },
     tool_capabilities = {
         full_punch_interval = 1,
         max_drop_level=5,
-        groupcaps={
-            shovely_dig_diamond = {times=mcl_autogroup.digtimes.shovely_dig_diamond, uses=renew_tools.uses, maxlevel=0},
-        },
         damage_groups = {fleshy=5},
         punch_attack_uses=renew_tools.uses,
+        groupcaps = {
+            shovely_dig_diamond = {times = auto_group, uses=renew_tools.uses, maxlevel=0}
+        }
     },
     on_place = make_grass_path,
     sound = { breaks = "default_tool_breaks" },
     _mcl_toollike_wield = true,
     _mcl_diggroups = {
-        shovely = { speed = 8, level = 5, uses=renew_tools.uses }
+        shovely = { speed = 9, level = 6, uses=renew_tools.uses }
     },
 })
 
@@ -197,21 +199,21 @@ minetest.register_tool("renew_tools:shovel", {
 minetest.register_tool("renew_tools:axe", {
     description = renew_tools.S("Renewable Axe"),
     inventory_image = "renew_tools_axe.png",
-    groups = { tool=1, axe=1, dig_speed_class=5, enchantability=10 },
+    groups = { tool=1, axe=1, dig_speed_class=6, enchantability=10 },
     tool_capabilities = {
         full_punch_interval = 1.0,
         max_drop_level=5,
-        groupcaps={
-            axey_dig_diamond = {times=mcl_autogroup.digtimes.axey_dig_diamond, uses=renew_tools.uses, maxlevel=0},
-        },
-        damage_groups = {fleshy=9},
+        damage_groups = {fleshy=10},
         punch_attack_uses=renew_tools.uses,
+        groupcaps = {
+            axey_dig_diamond = {times = auto_group, uses=renew_tools.uses, maxlevel=0}
+        }
     },
     on_place = make_stripped_trunk,
     sound = { breaks = "default_tool_breaks" },
     _mcl_toollike_wield = true,
     _mcl_diggroups = {
-        axey = { speed = 8, level = 5, uses=renew_tools.uses }
+        axey = { speed = 9, level = 6, uses=renew_tools.uses }
     },
 })
 
@@ -223,12 +225,12 @@ minetest.register_tool("renew_tools:sword", {
     tool_capabilities = {
         full_punch_interval = 0.625,
         max_drop_level=5,
-        groupcaps={
-            swordy_dig = {times=mcl_autogroup.digtimes.swordy_dig , uses=renew_tools.uses, maxlevel=0},
-            swordy_cobweb_dig = {times=mcl_autogroup.digtimes.swordy_cobweb_dig , uses=renew_tools.uses, maxlevel=0},
-        },
-        damage_groups = {fleshy=7},
+        damage_groups = {fleshy=9},
         punch_attack_uses=renew_tools.uses,
+        groupcaps = {
+            swordy_dig = {times = 1.5, uses=renew_tools.uses, maxlevel=0},
+            swordy_cobweb_dig = {times = 14, uses=renew_tools.uses, maxlevel=0}
+        }
     },
     sound = { breaks = "default_tool_breaks" },
     _mcl_toollike_wield = true,
@@ -256,7 +258,7 @@ minetest.register_tool("renew_tools:hoe", {
     },
 })
 
-local mat = "renew_plant:plant_tri"
+local mat = "renew_plant:plant"
 local stk = "group:stick"
 
 minetest.register_craft({

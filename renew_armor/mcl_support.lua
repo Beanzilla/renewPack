@@ -1,6 +1,10 @@
-local mcl_armor = armor
 
-local mat = "renew_plant:plant_tri"
+local mcl_armor = rawget(_G, "mcl_armor") or nil
+if mcl_armor == nil then
+    error("[renew_armor] Failed to obtain MCL armor")
+end
+
+local mat = "renew_plant:plant"
 local points = {
     head = 3,
     torso = 8,
@@ -13,7 +17,7 @@ renewal.usage = renew_armor.S("")
 minetest.register_tool("renew_armor:helmet", {
     description = renew_armor.S("Renewable Helmet"),
     _doc_items_longdesc = renew_armor.S("A self-repairing peice of armor"),
-    _doc_items_usagehelp = armor.usage,
+    _doc_items_usagehelp = mcl_armor.usage,
     inventory_image = "renew_armor_inv_helmet.png",
     groups = {armor_head = 1, combat_armor_head = 1, armor = 1, combat_armor = 1, mcl_armor_points = points.head, mcl_armor_toughness = 2, mcl_armor_uses=renew_armor.uses, enchantablility = 20},
     sounds = {

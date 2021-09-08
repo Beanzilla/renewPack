@@ -63,7 +63,7 @@ minetest.register_tool("renew_tools:sword", {
     groups = {sword = 1}
 })
 
-local mat = "renew_plant:plant_tri"
+local mat = "renew_plant:plant"
 local stk = "group:stick"
 
 minetest.register_craft({
@@ -103,13 +103,15 @@ minetest.register_craft({
 })
 
 -- Hoe
-if minetest.get_modpath("farming") or nil then
-    local farming = rawget(_G, "farming") or nil
+local farming = rawget(_G, "farming") or nil
+if farming ~= nil then
     farming.register_hoe(":renew_tools:hoe", {
         description = renew_tools.S("Renewable Hoe"),
         inventory_image = "renew_tools_hoe.png",
         max_uses=renew_tools.uses,
-        material = "renew_tools:renew_plant",
+        material = mat,
         groups = {hoe = 1}
     })
+else
+    minetest.log("action", "[renew_tools] MTG farming mod not found? (No Hoe for you)")
 end

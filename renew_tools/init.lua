@@ -10,10 +10,10 @@ renew_tools.mcl = minetest.get_modpath("mcl_core") or nil
 renew_tools.uses = 365
 
 -- The amount repaired per global step
-renew_tools.factor = 36
+renew_tools.factor = 42 -- 36
 
 -- Do we log when we repair? Used for debugging
-renew_tools.log = false
+renew_tools.log = true
 
 -- Only support repairing tools when they are in the main inventory of the player
 local function check_player(player, timer)
@@ -41,7 +41,7 @@ elseif renew_tools.mcl then
     minetest.log("action", "[renew_tools] Detected MCL")
     dofile(renew_tools.modpath.."/mcl_support.lua")
 else
-    error("Expected either MTG or MineClone2")
+    error("Expected either MTG or MineClone")
 end
 
 local timer = 0
