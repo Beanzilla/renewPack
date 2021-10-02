@@ -13,7 +13,7 @@ renew_tools.uses = 365
 renew_tools.factor = 42 -- 36
 
 -- Do we log when we repair? Used for debugging
-renew_tools.log = true
+renew_tools.log = false
 
 -- Only support repairing tools when they are in the main inventory of the player
 local function check_player(player, timer)
