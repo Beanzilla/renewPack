@@ -6,7 +6,7 @@ minetest.register_tool("renew_tools:pick", {
         full_punch_interval = 0.9,
         max_drop_level=3,
         groupcaps={
-            cracky = {times={[1]=2.0, [2]=1.0, [3]=0.50}, uses=renew_tools.uses, maxlevel=3},
+            cracky = {times={[1]=1.80, [2]=0.80, [3]=0.50}, uses=renew_tools.uses, maxlevel=3},
         },
         damage_groups = {fleshy=5},
     },
